@@ -583,17 +583,32 @@ Tua luz irá brilhar`
   };
 
   return (
-    <div className="flex h-screen bg-[#0f141e] text-white font-sans overflow-hidden">
-      <aside className={`relative flex flex-col bg-[#0f172a] border-r border-gray-800 transition-all duration-300 z-50 ${isSidebarExpanded ? 'w-64' : 'w-16 md:w-20'}`}>
+    <div className="flex h-screen bg-[#0f141e] text-white font-sans overflow-hidden overflow-x-hidden">
+      <aside
+        className={`relative flex flex-col bg-[#0f172a] border-r border-gray-800 transition-all duration-300 z-50 overflow-hidden ${isSidebarExpanded ? 'w-64' : 'w-16 md:w-20'
+          }`}
+      >
+
         <div onClick={() => setSidebarExpanded(!isSidebarExpanded)} className="p-4 md:p-6 flex items-center cursor-pointer hover:bg-[#1e2533]">
           <div className="bg-blue-600 p-2 rounded-lg"><Tent size={20} /></div>
           <h2 className={`ml-3 font-bold transition-all duration-300 ${isSidebarExpanded ? 'opacity-100' : 'opacity-0 w-0 h-0'}`}>Acampamento</h2>
         </div>
         <nav className="flex-1 px-2 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
           {menuItems.map((item) => (
-            <button key={item.name} onClick={() => { setActiveTab(item.name); if (window.innerWidth < 768) setSidebarExpanded(false); }} className={`w-full flex items-center gap-4 px-3 py-3 rounded-lg text-sm transition-all relative ${activeTab === item.name ? 'bg-blue-600/10 text-blue-400 border-l-4 border-blue-500' : 'text-gray-400 hover:bg-[#1e2533]'}`}>
+            <button key={item.name} onClick={() => { setActiveTab(item.name); if (window.innerWidth < 768) setSidebarExpanded(false); }} className={`w-full flex items-center py-3 rounded-lg text-sm transition-all relative
+  ${isSidebarExpanded ? 'gap-4 px-3 justify-start' : 'justify-center px-0'}
+  ${activeTab === item.name
+                ? 'bg-blue-600/10 text-blue-400 border-l-4 border-blue-500'
+                : 'text-gray-400 hover:bg-[#1e2533]'
+              }
+`}
+            >
               {item.icon}
-              <span className={`${isSidebarExpanded ? 'opacity-100' : 'opacity-0 absolute'}`}>{item.name}</span>
+              <span
+                className={`whitespace-nowrap transition-all duration-300 ${isSidebarExpanded ? 'opacity-100 ml-0' : 'opacity-0 w-0 ml-0 overflow-hidden'
+                  }`}
+              >
+                {item.name}</span>
             </button>
           ))}
         </nav>
